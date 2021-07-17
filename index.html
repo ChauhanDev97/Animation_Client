@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <div class="nav-wrapper">
+        <nav>
+            <h1 class="hover-this"><span>TR</span></h1>
+            <div class="cursor"></div>
+        </nav>
+        <section></section>
+    </div>
+
+    <div id="img">
+        <img src="A1.gif" alt="">
+    </div>
+    
+    <div id="img1">
+        <img src="A1.gif" alt="">
+    </div>
+    
+    <div id="navlink">
+        <a href="#">ABOUT</a>
+        <a href="#">WHO</a>
+        <a href="#">WORK</a>
+        <a href="#">CONTACT</a>
+    </div>
+
+
+    <script type = "text/javascript">
+    
+    function createBubble (){
+            const section = document.querySelector('section');
+            const createElement  = document.createElement('span');
+            var size = Math.random() * 60;  
+
+            createElement.style.width =  20 + size + 'px';
+            createElement.style.height = 20 + size + 'px';
+            createElement.style.left = Math.random() * innerWidth + "px";
+            section.appendChild(createElement);
+
+            setTimeout(() => {
+                createElement.remove()
+            },4000)
+        }
+        setInterval(createBubble, 50);
+
+        (function () {
+            const link = document.querySelectorAll('nav > .hover-this');
+
+            const animateit = function (e) {
+                const span = this.querySelector('span');
+                const { offsetX: x, offsetY: y } = e,
+                    { offsetWidth: width, offsetHeight: height } = this,
+                    move = 25,
+                    xMove = x / width * (move * 2) - move,
+                    yMove = y / height * (move * 2) - move;
+
+                span.style.transform = `translate(${xMove}px, ${yMove}px) `;
+
+                if (e.type === 'mouseleave') span.style.transform = '';
+            };
+
+            const editCursor = e => {
+                const { clientX: x, clientY: y } = e;
+                cusrsor.style.left = x + 'px';
+                cusrsor.style.top = y + 'px';
+            };
+
+            link.forEach(b => b.addEventListener('mousemove', animateit));
+            link.forEach(b => b.addEventListener('mouseleave', animateit));
+            window.addEventListener('mousemove'.editCursor);
+        })();
+    
+    </script>
+</body>
+
+</html>
